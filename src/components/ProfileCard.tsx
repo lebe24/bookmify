@@ -38,7 +38,7 @@ const ProfileCard = ({ isProfileCardOpen, closeProfileCard, session }: Props) =>
                   <div className="absolute h-full w-full bg-[radial-gradient(#71717a,transparent_1px)] [background-size:12px_12px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000000_70%,transparent_100%)] pointer-events-none"></div>
                   <button className="absolute top-2 right-2 text-zinc-600 hover:text-zinc-200 outline-none duration-200 animate-fade" onClick={closeProfileCard}><Cancel /></button>
                   <img src={logo} className="w-24 h-24 z-10 my-8 select-none" alt="Bookmarks logo" />
-                  <span className="border border-zinc-600 rounded-full px-3 py-1 text-sm">kmarks.boo</span>
+                  <span className="border border-zinc-600 rounded-full px-3 py-1 text-sm">Bookmify</span>
                   <Dialog.Title as="h3" className="text-lg font-semibold w-full truncate">{name}</Dialog.Title>
                   <p className="text-sm text-zinc-500"><Balancer>Thank you for choosing kmarks.boo to be part of your online journey. Happy bookmarking!</Balancer></p>
                   <div className="flex w-full my-8">
