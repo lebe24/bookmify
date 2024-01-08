@@ -1,6 +1,6 @@
 import { Fragment, useState, ReactNode } from "react"
 import { Menu, Transition } from "@headlessui/react"
-import { OpenInBrowser, BinMinus, Copy, Pin, MediaImage, RefreshDouble } from "iconoir-react"
+import { OpenInBrowser, BinMinus, Copy, Pin, MediaImage, RefreshDouble, Sparks } from "iconoir-react"
 import { toast } from "sonner"
 import { useBookmarkStore } from "../stores/BookmarkStore"
 import { useAuthStore } from "../stores/AuthStore"
@@ -33,6 +33,12 @@ const BookmarkDropdown = ({ bookmark }: Props) => {
   const copyUrl = (url: string) => {
     copy(url)
     toast("URL copied to clipboard!", {style: { backgroundColor: "#18181b", borderColor: "#3f3f46" }})
+  }
+
+  const generateTag = async () => {
+    if (!userId) return
+    const p = getBookmarks(userId)
+    console.log(p)
   }
 
   const refreshMetadata = async (url: string) => {
@@ -68,6 +74,9 @@ const BookmarkDropdown = ({ bookmark }: Props) => {
             </MenuItem>
             <MenuItem onClick={() => refreshMetadata(bookmark.url)}>
               <RefreshDouble width={16} />Refresh metadata
+            </MenuItem>
+            <MenuItem onClick={() => generateTag()}>
+              <Sparks width={16} />Generate tag
             </MenuItem>
             <MenuItem onClick={() => setIsThumbnailModalOpen(true)}>
               <MediaImage width={16} />Change thumbnail
