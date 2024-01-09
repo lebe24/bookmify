@@ -11,6 +11,8 @@ type Bookmark = {
   pinned: boolean
 }
 
+type 
+
 type Metadata = {
   title: string
   description: string
@@ -33,6 +35,12 @@ type ResponseSuccess = {
 type ResponseError = {
   data: string
   success: false
+}
+
+type MetaTag = {
+  title:string,
+  url: string,
+  description : string
 }
 
 type StoreResponse = ResponseSuccess | ResponseError

@@ -14,7 +14,7 @@ type Props = {
 }
 
 const BookmarkDropdown = ({ bookmark }: Props) => {
-  const { fetch: getBookmarks, update: updateBookmark } = useBookmarkStore(state => ({ fetch: state.fetch, update: state.update }))
+  const { fetch: getBookmarks, update: updateBookmark } = useBookmarkStore(state => ({ fetch: state.fetch, update: state.update , fetchById : state.fetchById}))
   const { copy } = useClipboard()
   const session = useAuthStore(state => state.session)
   const userId = session?.user.id
@@ -37,8 +37,8 @@ const BookmarkDropdown = ({ bookmark }: Props) => {
 
   const generateTag = async () => {
     if (!userId) return
-    const p = getBookmarks(userId)
-    console.log(p)
+    // const p = getBookmarks(userId)
+    console.log(bookmark.id)
   }
 
   const refreshMetadata = async (url: string) => {

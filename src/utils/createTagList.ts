@@ -1,4 +1,5 @@
 const createTagList = (bookmarks: Bookmark[]): Tag[] => {
+  console.log(bookmarks)
   const tags = bookmarks.reduce<Tag[]>((total, current) => {
     current.tags.forEach(tag => {
       const index = total.findIndex(x => x.name === tag)
