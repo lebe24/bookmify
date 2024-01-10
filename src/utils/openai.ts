@@ -1,7 +1,7 @@
 import OpenAI from "openai";
 
-const apiKey = "YOUR_OPENAI_API_KEY"; // Replace with your actual OpenAI API key
-const openai = new OpenAI({ apiKey });
+const apiKey = "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"; // Replace with your actual OpenAI API key
+const openai = new OpenAI({ apiKey , dangerouslyAllowBrowser: true });
 
 export const useopenai = async(user_prompt : MetaTag) => {
 
@@ -10,11 +10,11 @@ export const useopenai = async(user_prompt : MetaTag) => {
     messages: [
       {
         role: "system",
-        content: " "
+        content: "Suggest a suitable bookmark tag that takes a bookmark data or string based on given data. The input  include information about the bookmark, such as description, url,and title. Utilize an AI algorithm to process this data and generate a single string of suggested bookmark tags example of your output book, game etc just a single string."
       },
       {
         role: "user",
-        content: user_prompt.toString()
+        content: `${user_prompt.title} + ${user_prompt.description} + ${user_prompt.url}`
       }
     ],
     max_tokens: 1024,
@@ -23,7 +23,7 @@ export const useopenai = async(user_prompt : MetaTag) => {
     presence_penalty: 0,
   });
 
-  return response
+  return response.choices[0].message.content
 }
 
 // export const useOpenai = create<Ai_param>(() => ({

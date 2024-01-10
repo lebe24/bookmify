@@ -9,8 +9,8 @@ type BookmarkState = {
   fetch: (userId: string) => Promise<StoreResponse>
   add: (url: string, savedBy: string) => Promise<StoreResponse>
   delete: (bookmarkId: number) => Promise<StoreResponse>
-  update: (bookmarkId: number, updatedBookmark: Bookmark) => Promise<StoreResponse>
   fetchById: (bookmarkId: number) => Promise<StoreResponse>
+  update: (bookmarkId: number, updatedBookmark: Bookmark) => Promise<StoreResponse>
   selectedTag: string
   setSelectedTag: (tag: string) => void
 }
@@ -83,8 +83,7 @@ export const useBookmarkStore = create<BookmarkState>(set => ({
         .from("bookmarks")
         .select()
         .eq("id", bookmarkId)
-        .single();
-
+        .single()
       if (error) throw new Error(`Error fetching bookmark: ${error.message}`);
       if (!data) throw new Error(`Bookmark with ID ${bookmarkId} not found`);
 

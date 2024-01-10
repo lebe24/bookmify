@@ -28,7 +28,7 @@ type Tag = {
 }
 
 type ResponseSuccess = {
-  data: Bookmark[]
+  data: Bookmark[] | string | any 
   success: true
 }
 
