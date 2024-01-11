@@ -1,7 +1,7 @@
 import OpenAI from "openai";
 
 const apiKey = import.meta.env.VITE_OPENAPI    // Replace with your actual OpenAI API key
-const openai = new OpenAI({ apiKey , dangerouslyAllowBrowser: true });
+const openai = new OpenAI({ apiKey });
 
 export const useopenai = async(user_prompt : MetaTag) => {
 
