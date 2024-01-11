@@ -8,7 +8,7 @@ import getMetadata from "../utils/getMetadata"
 import useClipboard from "../hooks/useClipboard"
 import DeleteModal from "./DeleteModal"
 import ThumbnailModal from "./ThumbnailModal"
-import { getTag } from "../utils/genTag"
+import { getTag } from "../utils/getTag"
 
 type Props = {
   bookmark: Bookmark
@@ -37,17 +37,19 @@ const BookmarkDropdown = ({ bookmark }: Props) => {
   }
 
   const generateTag = async () => {
+    let temp:string;
+    
     const {data} = await getDataById(bookmark.id);
-    if (!data) return;
     const { description, url, title } = data;
     toast.promise( getTag(description, url, title), {
       loading: 'Loading...',
       success: (st) => {
-        return `${st} -> click to accept`;
+        temp = String(st);
+        return `${temp} -> click to accept`;
       },
       action:{
         label: 'Accept',
-        onClick: async() => await updateBookmark(bookmark.id, { ...bookmark, tags: [] })
+        onClick: async() => await updateBookmark(bookmark.id, { ...bookmark, tags: [temp] })
       },
       error: 'Error',
     });
