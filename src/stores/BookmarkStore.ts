@@ -9,6 +9,7 @@ type BookmarkState = {
   fetch: (userId: string) => Promise<StoreResponse>
   add: (url: string, savedBy: string) => Promise<StoreResponse>
   delete: (bookmarkId: number) => Promise<StoreResponse>
+  fetchById: (bookmarkId: number) => Promise<StoreResponse>
   update: (bookmarkId: number, updatedBookmark: Bookmark) => Promise<StoreResponse>
   selectedTag: string
   setSelectedTag: (tag: string) => void
@@ -74,6 +75,23 @@ export const useBookmarkStore = create<BookmarkState>(set => ({
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Something went wrong."
       return { data: errorMessage, success: false }
+    }
+  },
+  fetchById: async (bookmarkId) => {
+    try {
+      const { data, error } = await supabase
+        .from("bookmarks")
+        .select()
+        .eq("id", bookmarkId)
+        .single()
+      if (error) throw new Error(`Error fetching bookmark: ${error.message}`);
+      if (!data) throw new Error(`Bookmark with ID ${bookmarkId} not found`);
+
+      return { data, success: true };
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Something went wrong.";
+      return { data: errorMessage, success: false };
     }
   },
   update: async (bookmarkId, updatedBookmark) => {

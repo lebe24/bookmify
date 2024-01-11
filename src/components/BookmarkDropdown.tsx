@@ -1,6 +1,6 @@
 import { Fragment, useState, ReactNode } from "react"
 import { Menu, Transition } from "@headlessui/react"
-import { OpenInBrowser, BinMinus, Copy, Pin, MediaImage, RefreshDouble } from "iconoir-react"
+import { OpenInBrowser, BinMinus, Copy, Pin, MediaImage, RefreshDouble, Sparks } from "iconoir-react"
 import { toast } from "sonner"
 import { useBookmarkStore } from "../stores/BookmarkStore"
 import { useAuthStore } from "../stores/AuthStore"
@@ -8,13 +8,14 @@ import getMetadata from "../utils/getMetadata"
 import useClipboard from "../hooks/useClipboard"
 import DeleteModal from "./DeleteModal"
 import ThumbnailModal from "./ThumbnailModal"
+import { getTag } from "../utils/getTag"
 
 type Props = {
   bookmark: Bookmark
 }
 
 const BookmarkDropdown = ({ bookmark }: Props) => {
-  const { fetch: getBookmarks, update: updateBookmark } = useBookmarkStore(state => ({ fetch: state.fetch, update: state.update }))
+  const { fetch: getBookmarks, update: updateBookmark ,fetchById: getDataById } = useBookmarkStore(state => ({ fetch: state.fetch, update: state.update , fetchById : state.fetchById}))
   const { copy } = useClipboard()
   const session = useAuthStore(state => state.session)
   const userId = session?.user.id
@@ -34,6 +35,26 @@ const BookmarkDropdown = ({ bookmark }: Props) => {
     copy(url)
     toast("URL copied to clipboard!", {style: { backgroundColor: "#18181b", borderColor: "#3f3f46" }})
   }
+
+  const generateTag = async () => {
+    let temp:string;
+    
+    const {data} = await getDataById(bookmark.id);
+    const { description, url, title } = data;
+    toast.promise( getTag(description, url, title), {
+      loading: 'Loading...',
+      success: (st) => {
+        temp = String(st);
+        return `${temp} -> click to accept`;
+      },
+      action:{
+        label: 'Accept',
+        onClick: async() => await updateBookmark(bookmark.id, { ...bookmark, tags: [temp] })
+      },
+      error: 'Error',
+    });
+  }
+
 
   const refreshMetadata = async (url: string) => {
     const newMetadata = await getMetadata(url)
@@ -69,6 +90,9 @@ const BookmarkDropdown = ({ bookmark }: Props) => {
             <MenuItem onClick={() => refreshMetadata(bookmark.url)}>
               <RefreshDouble width={16} />Refresh metadata
             </MenuItem>
+            <MenuItem onClick={() => generateTag()}>
+              <Sparks width={16} />Generate tag
+            </MenuItem>
             <MenuItem onClick={() => setIsThumbnailModalOpen(true)}>
               <MediaImage width={16} />Change thumbnail
             </MenuItem>
@@ -92,11 +116,11 @@ type MenuItemProps = {
 const MenuItem = ({ onClick, children }: MenuItemProps) => {
   return (
     <Menu.Item>
-    {({ active }) => (
-      <button onClick={onClick} className={`${active ? "bg-zinc-800 text-zinc-200" : "text-zinc-900"} flex gap-2 w-full items-center rounded-[5px] p-2`}>
-        {children}
-      </button>
-    )}
+      {({ active }) => (
+        <button onClick={onClick} className={`${active ? "bg-zinc-800 text-zinc-200" : "text-zinc-900"} flex gap-2 w-full items-center rounded-[5px] p-2`}>
+          {children}
+        </button>
+      )}
   </Menu.Item>
   )
 }
