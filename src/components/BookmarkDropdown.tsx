@@ -37,19 +37,19 @@ const BookmarkDropdown = ({ bookmark }: Props) => {
   }
 
   const generateTag = async () => {
-    let temp:string;
+    let temp:string[];
     
     const {data} = await getDataById(bookmark.id);
     const { description, url, title } = data;
     toast.promise( getTag(description, url, title), {
       loading: 'Loading...',
-      success: (st) => {
-        temp = String(st);
-        return `${temp} -> click to accept`;
+      success: (s) => {
+        temp = s.replace(/\s/g, "").toLowerCase().split(",").filter(tag => tag);
+        return `${temp}`;
       },
       action:{
         label: 'Accept',
-        onClick: async() => await updateBookmark(bookmark.id, { ...bookmark, tags: [temp] })
+        onClick: async() => await updateBookmark(bookmark.id, { ...bookmark, tags: temp })
       },
       error: 'Error',
     });
