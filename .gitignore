@@ -5,3 +5,4 @@ node_modules
 
 # typescript
 *.tsbuildinfo
+/src/utils/supabase.ts

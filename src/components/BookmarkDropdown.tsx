@@ -8,7 +8,7 @@ import getMetadata from "../utils/getMetadata"
 import useClipboard from "../hooks/useClipboard"
 import DeleteModal from "./DeleteModal"
 import ThumbnailModal from "./ThumbnailModal"
-import { getTag } from "../utils/getTag"
+// import { getTag } from "../utils/getTag"
 
 type Props = {
   bookmark: Bookmark
@@ -40,19 +40,19 @@ const BookmarkDropdown = ({ bookmark }: Props) => {
     let temp:string[];
     
     const {data} = await getDataById(bookmark.id);
-    const { description, url, title } = data;
-    toast.promise( getTag(description, url, title), {
-      loading: 'Loading...',
-      success: (s) => {
-        temp = s.replace(/\s/g, "").toLowerCase().split(",").filter(tag => tag);
-        return `${temp}`;
-      },
-      action:{
-        label: 'Accept',
-        onClick: async() => await updateBookmark(bookmark.id, { ...bookmark, tags: temp })
-      },
-      error: 'Error',
-    });
+    // const { description, url, title } = data;
+    // toast.promise( getTag(description, url, title), {
+    //   loading: 'Loading...',
+    //   success: (s) => {
+    //     // temp = s.replace(/\s/g, "").toLowerCase().split(",").filter(tag => tag);
+    //     return `${temp}`;
+    //   },
+    //   action:{
+    //     label: 'Accept',
+    //     onClick: async() => await updateBookmark(bookmark.id, { ...bookmark, tags: temp })
+    //   },
+    //   error: 'Error',
+    // });
   }
 
 

@@ -11,7 +11,6 @@ type Bookmark = {
   pinned: boolean
 }
 
-type 
 
 type Metadata = {
   title: string
