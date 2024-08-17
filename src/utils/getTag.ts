@@ -1,8 +1,7 @@
-// import {useopenai}  from "./openai";
+import { generateBookmarkTags } from "./gemini";
 
-// export const getTag = async( description : string, url:string,title:string)=>{
-//     const input : MetaTag = {title,url,description}
-//     const res = await useopenai(input);
-//     console.log(res)
-//     return res;
-// }
+export const getTag = async( description : string,title:string)=>{
+    const input : MetaTag = {title,description}
+    const res = await generateBookmarkTags(input);
+    return res
+}

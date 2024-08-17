@@ -38,7 +38,6 @@ type ResponseError = {
 
 type MetaTag = {
   title:string,
-  url: string,
   description : string
 }
 
