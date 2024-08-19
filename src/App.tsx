@@ -10,6 +10,7 @@ import ScrollToTop from "./components/ScrollToTop"
 import { Toaster } from "sonner"
 import { useAuthStore } from "./stores/AuthStore"
 import grid from "./assets/grid.svg"
+import { Analytics } from '@vercel/analytics/react';
 
 const App = () => {
   const { session, setSession } = useAuthStore(state => ({ session: state.session, setSession: state.setSession }))
@@ -36,6 +37,7 @@ const App = () => {
         <ScrollToTop />
         <Toaster richColors closeButton theme="dark" position="bottom-center" />
       </main>
+      <Analytics />
     </div>
   )
 }
