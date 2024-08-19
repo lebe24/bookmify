@@ -1,10 +1,10 @@
 import { GoogleGenerativeAI   } from '@google/generative-ai';
 
+const apikey  = import.meta.env.VITE_GEMINI_KEY;
 
 
 export async function generateBookmarkTags(metadata: MetaTag): Promise<string> {
-  let apikey  = import.meta.env.Gemini_API;
-
+  
   const systemPrompt = `
   You are a helpful assistant who suggests bookmark tags for a webpage using the webpage metadata:
   - title: "${metadata.title}"
