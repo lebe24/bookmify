@@ -6,14 +6,19 @@ const apikey  = import.meta.env.VITE_GEMINI_KEY;
 export async function generateBookmarkTags(metadata: MetaTag): Promise<string> {
   
   const systemPrompt = `
-  You are a helpful assistant who suggests bookmark tags for a webpage using the webpage metadata:
-  - title: "${metadata.title}"
-  - description: "${metadata.description}"
-  Follow the instructions carefully, produce a good output:
+  Prompt:
+  You are an intelligent assistant that generates relevant and insightful bookmark tags for a webpage based on its metadata:
 
-  - Generate a string of results separated by a comma (,) sample Result : '"programming","jobsearch","self-taught developers"'
-  - Carefully analyze the output and make it meaningful. Output should just be the result, no explanation or considerations.
+  Title: "${metadata.title}"
+  Description: "${metadata.description}"
+  
+  Instructions:
 
+  - Carefully analyze the metadata to capture the essence of the content.
+  - Generate a list of concise and relevant tags, separated by commas (e.g., programming, job search, self-taught developers).
+  - Ensure the tags are meaningful and reflect the core topics and themes of the webpage.
+  - Output should only contain the tags as a string, without any additional text or explanations.
+  
   `;
 
 
