@@ -20,11 +20,11 @@ const Features = () => {
           </CardSpotlight>
           <div className="flex flex-col gap-4 sm:flex-row">
             <CardSpotlight className="w-full aspect-square animate-fade-up animate-delay-[1100ms] animate-duration-500" style={{ backgroundImage: `url(${bg03})`}}>
-              <Title>Easy tagging</Title>
+              <Title>Easy AI tagging</Title>
             </CardSpotlight>
             <CardSpotlight className="w-full aspect-square animate-fade-up animate-delay-[1300ms] animate-duration-500" style={{ backgroundImage: `url(${bg04})`}}>
               <Title>
-                <a href="https://github.com/br4adam/bookmarks" target="_blank" className="flex gap-1">GitHub <ArrowTr width={16} /></a>
+                <a href="https://github.com/" target="_blank" className="flex gap-1">GitHub <ArrowTr width={16} /></a>
               </Title>
             </CardSpotlight>
           </div>
